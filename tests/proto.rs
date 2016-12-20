@@ -2,12 +2,12 @@
 #![cfg(feature="serialization-protobuf")]
 
 extern crate ring;
-extern crate merkle;
+extern crate patricia;
 extern crate protobuf;
 
 use ring::digest::{ Algorithm, SHA512 };
 
-use merkle::{ MerkleTree, Proof };
+use patricia::{ MerkleTree, Proof };
 
 #[allow(non_upper_case_globals)]
 static digest: &'static Algorithm = &SHA512;

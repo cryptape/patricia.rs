@@ -1,7 +1,8 @@
 [package]
-name    = "merkle"
-version = "1.0.0"
+name    = "patricia"
+version = "0.0.0"
 authors = [
+  "gguoss",
   "Frederic Jacobs <me@fredericjacobs.com>",
   "Dylan Bourgeois <dtsbourg@gmail.com>",
   "Romain Ruetschi <romain.ruetschi@gmail.com>"
