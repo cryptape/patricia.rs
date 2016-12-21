@@ -1,0 +1,27 @@
+[package]
+description = "Forked something form Ethcore utility library"
+license = "GPL-3.0"
+name = "patricia_trie"
+version = "0.0.0"
+authors = ["gguoss"]
+
+[dependencies]
+log = "0.3.0"
+env_logger = "0.3"
+rand = "0.3.12"
+arrayvec = "0.3"
+ansi_term = "0.7"
+lazy_static = "0.2"
+rustc-serialize = "0.3"
+elastic-array = { git = "https://github.com/ethcore/elastic-array" }
+rocksdb = { git = "https://github.com/ethcore/rust-rocksdb" }
+heapsize = { version = "0.3", features = ["unstable"] }
+sha3 = { path = "sha3" }
+tiny-keccak= "1.0"
+rlp = { path = "rlp" }
+ethcore-bigint = { path = "bigint" }
+ethcore-devtools = { path = "devtools" }
+libc = "0.2.7"
+regex = "0.1"
+itertools = "0.4"
+parking_lot = "0.3"
