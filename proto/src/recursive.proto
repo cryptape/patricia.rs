@@ -1,0 +1,7 @@
+
+syntax = "proto3";
+
+message RecursiveProto {
+  bytes content = 1;
+  RecursiveProto sub_recursive = 2;
+}
