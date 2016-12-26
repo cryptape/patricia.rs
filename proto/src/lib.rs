@@ -29,3 +29,12 @@ pub fn encode<E>(object: &E) -> ElasticArray1024<u8> where E: RlpEncodable {
 */
 
 use recursive::{ListProto, RecursiveProto};
+
+impl ListProto {
+    pub fn append_str(&mut self, str: ::std::vec::Vec<u8>) {
+        self.mut_str().push(str);
+    }
+    pub fn append_list(&mut self, list: ListProto) {
+        self.mut_list().push(list);
+    }
+}

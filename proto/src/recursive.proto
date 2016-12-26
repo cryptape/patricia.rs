@@ -2,10 +2,10 @@
 syntax = "proto3";
 
 message ListProto {
-  repeated bytes str = 1;
-  repeated ListProto list = 2;
+    repeated bytes str = 1;
+    repeated ListProto list = 2;
 }
 message RecursiveProto {
-  bytes str = 1;
-  ListProto list = 2;
+    bytes str = 1;
+    ListProto list = 2;
 }
