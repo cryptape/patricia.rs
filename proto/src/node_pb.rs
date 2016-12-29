@@ -733,10 +733,10 @@ unsafe impl ::std::marker::Sync for NodePB {}
 
 #[derive(Clone,PartialEq)]
 pub enum NodePB_oneof_content {
-    empty(bool),
-    leaf(LeafPB),
-    extension(ExtensionPB),
-    branch(BranchPB),
+    Empty(bool),
+    Leaf(LeafPB),
+    Extension(ExtensionPB),
+    Branch(BranchPB),
 }
 
 impl NodePB {
@@ -760,67 +760,67 @@ impl NodePB {
         }
     }
 
-    // optional bool empty = 1;
+    // optional bool Empty = 1;
 
-    pub fn clear_empty(&mut self) {
+    pub fn clear_Empty(&mut self) {
         self.content = ::std::option::Option::None;
     }
 
-    pub fn has_empty(&self) -> bool {
+    pub fn has_Empty(&self) -> bool {
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::empty(..)) => true,
+            ::std::option::Option::Some(NodePB_oneof_content::Empty(..)) => true,
             _ => false,
         }
     }
 
     // Param is passed by value, moved
-    pub fn set_empty(&mut self, v: bool) {
-        self.content = ::std::option::Option::Some(NodePB_oneof_content::empty(v))
+    pub fn set_Empty(&mut self, v: bool) {
+        self.content = ::std::option::Option::Some(NodePB_oneof_content::Empty(v))
     }
 
-    pub fn get_empty(&self) -> bool {
+    pub fn get_Empty(&self) -> bool {
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::empty(v)) => v,
+            ::std::option::Option::Some(NodePB_oneof_content::Empty(v)) => v,
             _ => false,
         }
     }
 
-    // optional .LeafPB leaf = 2;
+    // optional .LeafPB Leaf = 2;
 
-    pub fn clear_leaf(&mut self) {
+    pub fn clear_Leaf(&mut self) {
         self.content = ::std::option::Option::None;
     }
 
-    pub fn has_leaf(&self) -> bool {
+    pub fn has_Leaf(&self) -> bool {
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::leaf(..)) => true,
+            ::std::option::Option::Some(NodePB_oneof_content::Leaf(..)) => true,
             _ => false,
         }
     }
 
     // Param is passed by value, moved
-    pub fn set_leaf(&mut self, v: LeafPB) {
-        self.content = ::std::option::Option::Some(NodePB_oneof_content::leaf(v))
+    pub fn set_Leaf(&mut self, v: LeafPB) {
+        self.content = ::std::option::Option::Some(NodePB_oneof_content::Leaf(v))
     }
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_leaf(&mut self) -> &mut LeafPB {
-        if let ::std::option::Option::Some(NodePB_oneof_content::leaf(_)) = self.content {
+    pub fn mut_Leaf(&mut self) -> &mut LeafPB {
+        if let ::std::option::Option::Some(NodePB_oneof_content::Leaf(_)) = self.content {
         } else {
-            self.content = ::std::option::Option::Some(NodePB_oneof_content::leaf(LeafPB::new()));
+            self.content = ::std::option::Option::Some(NodePB_oneof_content::Leaf(LeafPB::new()));
         }
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::leaf(ref mut v)) => v,
+            ::std::option::Option::Some(NodePB_oneof_content::Leaf(ref mut v)) => v,
             _ => panic!(),
         }
     }
 
     // Take field
-    pub fn take_leaf(&mut self) -> LeafPB {
-        if self.has_leaf() {
+    pub fn take_Leaf(&mut self) -> LeafPB {
+        if self.has_Leaf() {
             match self.content.take() {
-                ::std::option::Option::Some(NodePB_oneof_content::leaf(v)) => v,
+                ::std::option::Option::Some(NodePB_oneof_content::Leaf(v)) => v,
                 _ => panic!(),
             }
         } else {
@@ -828,49 +828,49 @@ impl NodePB {
         }
     }
 
-    pub fn get_leaf(&self) -> &LeafPB {
+    pub fn get_Leaf(&self) -> &LeafPB {
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::leaf(ref v)) => v,
+            ::std::option::Option::Some(NodePB_oneof_content::Leaf(ref v)) => v,
             _ => LeafPB::default_instance(),
         }
     }
 
-    // optional .ExtensionPB extension = 3;
+    // optional .ExtensionPB Extension = 3;
 
-    pub fn clear_extension(&mut self) {
+    pub fn clear_Extension(&mut self) {
         self.content = ::std::option::Option::None;
     }
 
-    pub fn has_extension(&self) -> bool {
+    pub fn has_Extension(&self) -> bool {
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::extension(..)) => true,
+            ::std::option::Option::Some(NodePB_oneof_content::Extension(..)) => true,
             _ => false,
         }
     }
 
     // Param is passed by value, moved
-    pub fn set_extension(&mut self, v: ExtensionPB) {
-        self.content = ::std::option::Option::Some(NodePB_oneof_content::extension(v))
+    pub fn set_Extension(&mut self, v: ExtensionPB) {
+        self.content = ::std::option::Option::Some(NodePB_oneof_content::Extension(v))
     }
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_extension(&mut self) -> &mut ExtensionPB {
-        if let ::std::option::Option::Some(NodePB_oneof_content::extension(_)) = self.content {
+    pub fn mut_Extension(&mut self) -> &mut ExtensionPB {
+        if let ::std::option::Option::Some(NodePB_oneof_content::Extension(_)) = self.content {
         } else {
-            self.content = ::std::option::Option::Some(NodePB_oneof_content::extension(ExtensionPB::new()));
+            self.content = ::std::option::Option::Some(NodePB_oneof_content::Extension(ExtensionPB::new()));
         }
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::extension(ref mut v)) => v,
+            ::std::option::Option::Some(NodePB_oneof_content::Extension(ref mut v)) => v,
             _ => panic!(),
         }
     }
 
     // Take field
-    pub fn take_extension(&mut self) -> ExtensionPB {
-        if self.has_extension() {
+    pub fn take_Extension(&mut self) -> ExtensionPB {
+        if self.has_Extension() {
             match self.content.take() {
-                ::std::option::Option::Some(NodePB_oneof_content::extension(v)) => v,
+                ::std::option::Option::Some(NodePB_oneof_content::Extension(v)) => v,
                 _ => panic!(),
             }
         } else {
@@ -878,49 +878,49 @@ impl NodePB {
         }
     }
 
-    pub fn get_extension(&self) -> &ExtensionPB {
+    pub fn get_Extension(&self) -> &ExtensionPB {
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::extension(ref v)) => v,
+            ::std::option::Option::Some(NodePB_oneof_content::Extension(ref v)) => v,
             _ => ExtensionPB::default_instance(),
         }
     }
 
-    // optional .BranchPB branch = 4;
+    // optional .BranchPB Branch = 4;
 
-    pub fn clear_branch(&mut self) {
+    pub fn clear_Branch(&mut self) {
         self.content = ::std::option::Option::None;
     }
 
-    pub fn has_branch(&self) -> bool {
+    pub fn has_Branch(&self) -> bool {
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::branch(..)) => true,
+            ::std::option::Option::Some(NodePB_oneof_content::Branch(..)) => true,
             _ => false,
         }
     }
 
     // Param is passed by value, moved
-    pub fn set_branch(&mut self, v: BranchPB) {
-        self.content = ::std::option::Option::Some(NodePB_oneof_content::branch(v))
+    pub fn set_Branch(&mut self, v: BranchPB) {
+        self.content = ::std::option::Option::Some(NodePB_oneof_content::Branch(v))
     }
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_branch(&mut self) -> &mut BranchPB {
-        if let ::std::option::Option::Some(NodePB_oneof_content::branch(_)) = self.content {
+    pub fn mut_Branch(&mut self) -> &mut BranchPB {
+        if let ::std::option::Option::Some(NodePB_oneof_content::Branch(_)) = self.content {
         } else {
-            self.content = ::std::option::Option::Some(NodePB_oneof_content::branch(BranchPB::new()));
+            self.content = ::std::option::Option::Some(NodePB_oneof_content::Branch(BranchPB::new()));
         }
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::branch(ref mut v)) => v,
+            ::std::option::Option::Some(NodePB_oneof_content::Branch(ref mut v)) => v,
             _ => panic!(),
         }
     }
 
     // Take field
-    pub fn take_branch(&mut self) -> BranchPB {
-        if self.has_branch() {
+    pub fn take_Branch(&mut self) -> BranchPB {
+        if self.has_Branch() {
             match self.content.take() {
-                ::std::option::Option::Some(NodePB_oneof_content::branch(v)) => v,
+                ::std::option::Option::Some(NodePB_oneof_content::Branch(v)) => v,
                 _ => panic!(),
             }
         } else {
@@ -928,9 +928,9 @@ impl NodePB {
         }
     }
 
-    pub fn get_branch(&self) -> &BranchPB {
+    pub fn get_Branch(&self) -> &BranchPB {
         match self.content {
-            ::std::option::Option::Some(NodePB_oneof_content::branch(ref v)) => v,
+            ::std::option::Option::Some(NodePB_oneof_content::Branch(ref v)) => v,
             _ => BranchPB::default_instance(),
         }
     }
@@ -949,25 +949,25 @@ impl ::protobuf::Message for NodePB {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
                     };
-                    self.content = ::std::option::Option::Some(NodePB_oneof_content::empty(try!(is.read_bool())));
+                    self.content = ::std::option::Option::Some(NodePB_oneof_content::Empty(try!(is.read_bool())));
                 },
                 2 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
                         return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
                     };
-                    self.content = ::std::option::Option::Some(NodePB_oneof_content::leaf(try!(is.read_message())));
+                    self.content = ::std::option::Option::Some(NodePB_oneof_content::Leaf(try!(is.read_message())));
                 },
                 3 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
                         return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
                     };
-                    self.content = ::std::option::Option::Some(NodePB_oneof_content::extension(try!(is.read_message())));
+                    self.content = ::std::option::Option::Some(NodePB_oneof_content::Extension(try!(is.read_message())));
                 },
                 4 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
                         return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
                     };
-                    self.content = ::std::option::Option::Some(NodePB_oneof_content::branch(try!(is.read_message())));
+                    self.content = ::std::option::Option::Some(NodePB_oneof_content::Branch(try!(is.read_message())));
                 },
                 _ => {
                     try!(::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields()));
@@ -983,18 +983,18 @@ impl ::protobuf::Message for NodePB {
         let mut my_size = 0;
         if let ::std::option::Option::Some(ref v) = self.content {
             match v {
-                &NodePB_oneof_content::empty(v) => {
+                &NodePB_oneof_content::Empty(v) => {
                     my_size += 2;
                 },
-                &NodePB_oneof_content::leaf(ref v) => {
+                &NodePB_oneof_content::Leaf(ref v) => {
                     let len = v.compute_size();
                     my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
                 },
-                &NodePB_oneof_content::extension(ref v) => {
+                &NodePB_oneof_content::Extension(ref v) => {
                     let len = v.compute_size();
                     my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
                 },
-                &NodePB_oneof_content::branch(ref v) => {
+                &NodePB_oneof_content::Branch(ref v) => {
                     let len = v.compute_size();
                     my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
                 },
@@ -1008,20 +1008,20 @@ impl ::protobuf::Message for NodePB {
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
         if let ::std::option::Option::Some(ref v) = self.content {
             match v {
-                &NodePB_oneof_content::empty(v) => {
+                &NodePB_oneof_content::Empty(v) => {
                     try!(os.write_bool(1, v));
                 },
-                &NodePB_oneof_content::leaf(ref v) => {
+                &NodePB_oneof_content::Leaf(ref v) => {
                     try!(os.write_tag(2, ::protobuf::wire_format::WireTypeLengthDelimited));
                     try!(os.write_raw_varint32(v.get_cached_size()));
                     try!(v.write_to_with_cached_sizes(os));
                 },
-                &NodePB_oneof_content::extension(ref v) => {
+                &NodePB_oneof_content::Extension(ref v) => {
                     try!(os.write_tag(3, ::protobuf::wire_format::WireTypeLengthDelimited));
                     try!(os.write_raw_varint32(v.get_cached_size()));
                     try!(v.write_to_with_cached_sizes(os));
                 },
-                &NodePB_oneof_content::branch(ref v) => {
+                &NodePB_oneof_content::Branch(ref v) => {
                     try!(os.write_tag(4, ::protobuf::wire_format::WireTypeLengthDelimited));
                     try!(os.write_raw_varint32(v.get_cached_size()));
                     try!(v.write_to_with_cached_sizes(os));
@@ -1071,24 +1071,24 @@ impl ::protobuf::MessageStatic for NodePB {
             descriptor.get(|| {
                 let mut fields = ::std::vec::Vec::new();
                 fields.push(::protobuf::reflect::accessor::make_singular_bool_accessor(
-                    "empty",
-                    NodePB::has_empty,
-                    NodePB::get_empty,
+                    "Empty",
+                    NodePB::has_Empty,
+                    NodePB::get_Empty,
                 ));
                 fields.push(::protobuf::reflect::accessor::make_singular_message_accessor(
-                    "leaf",
-                    NodePB::has_leaf,
-                    NodePB::get_leaf,
+                    "Leaf",
+                    NodePB::has_Leaf,
+                    NodePB::get_Leaf,
                 ));
                 fields.push(::protobuf::reflect::accessor::make_singular_message_accessor(
-                    "extension",
-                    NodePB::has_extension,
-                    NodePB::get_extension,
+                    "Extension",
+                    NodePB::has_Extension,
+                    NodePB::get_Extension,
                 ));
                 fields.push(::protobuf::reflect::accessor::make_singular_message_accessor(
-                    "branch",
-                    NodePB::has_branch,
-                    NodePB::get_branch,
+                    "Branch",
+                    NodePB::has_Branch,
+                    NodePB::get_Branch,
                 ));
                 ::protobuf::reflect::MessageDescriptor::new::<NodePB>(
                     "NodePB",
@@ -1102,10 +1102,10 @@ impl ::protobuf::MessageStatic for NodePB {
 
 impl ::protobuf::Clear for NodePB {
     fn clear(&mut self) {
-        self.clear_empty();
-        self.clear_leaf();
-        self.clear_extension();
-        self.clear_branch();
+        self.clear_Empty();
+        self.clear_Leaf();
+        self.clear_Extension();
+        self.clear_Branch();
         self.unknown_fields.clear();
     }
 }
@@ -1184,15 +1184,15 @@ static file_descriptor_proto_data: &'static [u8] = &[
     0x63, 0x68, 0x50, 0x42, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x03, 0x28,
     0x0c, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18,
     0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0xd5, 0x01, 0x0a,
-    0x06, 0x4e, 0x6f, 0x64, 0x65, 0x50, 0x42, 0x12, 0x16, 0x0a, 0x05, 0x65, 0x6d, 0x70, 0x74, 0x79,
-    0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x48, 0x00, 0x52, 0x05, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x12,
-    0x1d, 0x0a, 0x04, 0x6c, 0x65, 0x61, 0x66, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e,
-    0x4c, 0x65, 0x61, 0x66, 0x50, 0x42, 0x48, 0x00, 0x52, 0x04, 0x6c, 0x65, 0x61, 0x66, 0x12, 0x2c,
-    0x0a, 0x09, 0x65, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28,
+    0x06, 0x4e, 0x6f, 0x64, 0x65, 0x50, 0x42, 0x12, 0x16, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79,
+    0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x48, 0x00, 0x52, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12,
+    0x1d, 0x0a, 0x04, 0x4c, 0x65, 0x61, 0x66, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e,
+    0x4c, 0x65, 0x61, 0x66, 0x50, 0x42, 0x48, 0x00, 0x52, 0x04, 0x4c, 0x65, 0x61, 0x66, 0x12, 0x2c,
+    0x0a, 0x09, 0x45, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28,
     0x0b, 0x32, 0x0c, 0x2e, 0x45, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x50, 0x42, 0x48,
-    0x00, 0x52, 0x09, 0x65, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x23, 0x0a, 0x06,
-    0x62, 0x72, 0x61, 0x6e, 0x63, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x42,
-    0x72, 0x61, 0x6e, 0x63, 0x68, 0x50, 0x42, 0x48, 0x00, 0x52, 0x06, 0x62, 0x72, 0x61, 0x6e, 0x63,
+    0x00, 0x52, 0x09, 0x45, 0x78, 0x74, 0x65, 0x6e, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x23, 0x0a, 0x06,
+    0x42, 0x72, 0x61, 0x6e, 0x63, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x42,
+    0x72, 0x61, 0x6e, 0x63, 0x68, 0x50, 0x42, 0x48, 0x00, 0x52, 0x06, 0x42, 0x72, 0x61, 0x6e, 0x63,
     0x68, 0x22, 0x36, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x09, 0x0a, 0x05, 0x45, 0x4d, 0x50,
     0x54, 0x59, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x4c, 0x45, 0x41, 0x46, 0x10, 0x01, 0x12, 0x0d,
     0x0a, 0x09, 0x45, 0x58, 0x54, 0x45, 0x4e, 0x53, 0x49, 0x4f, 0x4e, 0x10, 0x02, 0x12, 0x0a, 0x0a,

@@ -24,9 +24,9 @@ message NodePB {
         BRANCH = 3;
     } 
     oneof content {
-        bool empty = 1;
-        LeafPB leaf = 2;
-        ExtensionPB extension = 3;
-        BranchPB branch = 4;
+        bool Empty = 1;
+        LeafPB Leaf = 2;
+        ExtensionPB Extension = 3;
+        BranchPB Branch = 4;
     }
 }
