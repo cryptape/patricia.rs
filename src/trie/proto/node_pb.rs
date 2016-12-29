@@ -722,7 +722,7 @@ impl ::std::fmt::Debug for BranchPB {
 #[derive(Clone,Default)]
 pub struct NodePB {
     // message oneof groups
-    content: ::std::option::Option<NodePB_oneof_content>,
+    pub content: ::std::option::Option<NodePB_oneof_content>,
     // special fields
     unknown_fields: ::protobuf::UnknownFields,
     cached_size: ::std::cell::Cell<u32>,
