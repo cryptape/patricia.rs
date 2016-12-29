@@ -1,22 +1,19 @@
 extern crate ethcore_bigint as bigint;
 extern crate elastic_array;
 extern crate rustc_serialize;
-extern crate protobuf;
 
-use protobuf::Message;
-use protobuf::error::ProtobufResult;
-use protobuf::core::parse_from_bytes;
+use super::super::protobuf::Message as Message;
+use super::super::protobuf::error::ProtobufResult as ProtobufResult;
+use super::super::protobuf::core::parse_from_bytes as parse_from_bytes;
 
 mod node_pb;
 mod recursive;
 
-#[macro_use]
-extern crate lazy_static;
 use elastic_array::ElasticArray1024;
-use recursive::{ListProto, RecursiveProto};
-use node_pb::{NodePB};
+use self::recursive::{ListProto, RecursiveProto};
+use self::node_pb::{NodePB};
 
-pub fn pb_decode(bytes: &[u8]) -> NodePB{
+pub fn pb_decode() -> NodePB{
 }
 
 pub fn pb_encode() -> NodePB {

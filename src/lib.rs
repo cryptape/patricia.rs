@@ -17,6 +17,7 @@ extern crate regex;
 extern crate arrayvec;
 extern crate ansi_term;
 extern crate ethcore_devtools as devtools;
+extern crate protobuf;
 
 pub mod standard;
 pub mod sha3;

@@ -37,6 +37,8 @@ pub mod sectriedbmut;
 /// Trie query recording.
 pub mod recorder;
 
+pub mod proto;
+
 
 mod fatdb;
 mod fatdbmut;
