@@ -9,8 +9,7 @@ use super::super::protobuf::core::parse_from_bytes;
 mod node_pb;
 mod recursive;
 
-use elastic_array::ElasticArray1024;
-use self::recursive::{ListProto, RecursiveProto};
+//use self::recursive::{ListProto};
 use self::node_pb::*;
 use super::node::Node;
 use super::node::NodeKey;
@@ -27,7 +26,7 @@ impl Node {
 }
 
 impl NodePB {
-    pub fn into_node(mut self) -> Option<Node> {
+    pub fn into_node(self) -> Option<Node> {
         match self.content.unwrap() {
             NodePB_oneof_content::Empty(b) => { Some(Node::Empty) }, 
             NodePB_oneof_content::Leaf(leaf) => { Some(Node::Leaf(NodeKey::from_slice(leaf.get_key()), DBValue::from_slice(leaf.get_value()))) },
@@ -60,13 +59,13 @@ impl NodePB {
         proto
     }
 }
-
+/*
 impl ListProto {
-    pub fn append_str(&mut self, str: ::std::vec::Vec<u8>) {
+    fn append_str(&mut self, str: ::std::vec::Vec<u8>) {
         self.mut_str().push(str);
     }
-    pub fn append_list(&mut self, list: ListProto) {
+     fn append_list(&mut self, list: ListProto) {
         self.mut_list().push(list);
     }
 }
-
+*/
