@@ -19,6 +19,7 @@
 use super::{TrieError, TrieMut};
 use super::node::Node as RlpNode;
 use super::node::NodeKey;
+use proto::*;
 
 use ::{HashDB, H256};
 use ::bytes::ToPretty;
@@ -162,6 +163,20 @@ impl Node {
 			}
 		}
 	}
+
+    fn into_node<F>(self, mut node_child_cb: F) -> ElasticArray1024<u8>
+        where F: FnMut(NodeHandle, &mut [u8])
+    {
+        match self {
+            Node::Empty => {
+            }
+            Node::Leaf(partial, value) => {
+            }
+            Node::Extension(partial, child) => {
+            }
+            Node::Branch(mut children, value) => {}
+        }
+    }
 }
 
 // post-inspect action.
@@ -856,6 +871,23 @@ impl<'a> TrieDBMut<'a> {
 		}
 	}
 
+    pub fn commit_pb(&mut self) {
+        for hash in self.death_row.drain() {
+            self.db.remove(&hash);
+        }
+        let handle = match self.root_handle() {
+            NodeHandle::Hash(_) => return,
+            NodeHandle::Inmemory(h) => h,
+        };
+        
+        match self.storage.destroy(handle) {
+            Stored::New(node) => {
+                let 
+            }
+
+        }
+    }
+
 	/// commit a node, hashing it, committing it to the db,
 	/// and writing it to the rlp stream as necessary.
 	fn commit_node(&mut self, handle: NodeHandle, stream: &mut RlpStream) {
@@ -876,6 +908,25 @@ impl<'a> TrieDBMut<'a> {
 			}
 		};
 	}
+
+    fn commit_pb_node(&mut self, handle: NodeHandle, stream: &mut Vec<u8>) {
+        match handle {
+            NodeHandle::Hash(h) => stream.append(&h),
+            NodeHandle::InMemory(h) => match self.storage.destroy(h) {
+                Stored::Cached(_, h) => stream.append(&h),
+                Stored::New(node) => {
+                    let node_pb = node.into_pb(|child, stream| self.commit_node(child, stream));
+                    if node_pb.len() >= 32 {
+                        let hash = self.db.insert(&node_pb[..]);
+                        self.hash_count += 1;
+                        stream.append(&hash)
+                    } else {
+                        stream.append_raw(&node_pb, 1)
+                    }
+                }
+            }
+        };
+    }
 
 	// a hack to get the root node's handle
 	fn root_handle(&self) -> NodeHandle {
