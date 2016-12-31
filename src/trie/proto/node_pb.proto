@@ -1,6 +1,13 @@
 
 syntax = "proto3";
 
+message NodeHandlePB {
+    oneof content {
+        bytes hash = 1;
+        NodePB node = 2;
+    }
+}
+
 message LeafPB {
     bytes key = 1;
     bytes value = 2;
@@ -8,12 +15,12 @@ message LeafPB {
 
 message ExtensionPB {
     bytes key = 1;
-    bytes value = 2;
+    NodeHandlePB value = 2;
 }
 
 message BranchPB {
     repeated bytes key = 1;
-    bytes value = 2;
+    NodeHandlePB value = 2;
 }
 
 message NodePB {

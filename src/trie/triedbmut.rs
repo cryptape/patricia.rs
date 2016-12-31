@@ -164,18 +164,26 @@ impl Node {
 		}
 	}
 
-    fn into_node<F>(self, mut node_child_cb: F) -> ElasticArray1024<u8>
+    fn into_node<F>(self, mut node_child_cb: F) -> ProtobufResult<Vec<u8>>
         where F: FnMut(NodeHandle, &mut [u8])
     {
+        let mut proto = NodePB::new();
         match self {
             Node::Empty => {
+                proto.set_Empty(true);
             }
             Node::Leaf(partial, value) => {
+                let mut leaf = LeafPB::new();
+                leaf.set_key(k.to_vec());
+                leaf.set_value(v.to_vec());
+                proto.set_Leaf(leaf);
             }
             Node::Extension(partial, child) => {
+
             }
             Node::Branch(mut children, value) => {}
         }
+        proto.write_to_bytes()
     }
 }
 
