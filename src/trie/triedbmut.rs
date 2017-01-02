@@ -165,7 +165,7 @@ impl Node {
 	}
 
     fn into_node<F>(self, mut node_child_cb: F) -> ProtobufResult<Vec<u8>>
-        where F: FnMut(NodeHandle, &mut [u8])
+        where F: FnMut(NodeHandle, &mut NodeHandlePB)
     {
         let mut proto = NodePB::new();
         match self {
@@ -179,9 +179,29 @@ impl Node {
                 proto.set_Leaf(leaf);
             }
             Node::Extension(partial, child) => {
-
+                let mut extension = ExtensionPB::new();
+                extension.set_key(patrial.to_vec());
+                let mut nhpb = NodeHandlePB::new();
+                node_child_cb(child, &mut nhpb);
+                extension.set_value(nhhb);
+                proto.set_Extension(extension);
             }
-            Node::Branch(mut children, value) => {}
+            Node::Branch(mut children, value) => {
+                let mut branch = BranchPB::new();
+				for child in children.iter_mut().map(Option::take) {
+                    let mut nhpb = NodeHandlePB::new();
+					if let Some(handle) = child {
+						node_child_cb(handle, &mut nhpb);
+					}
+                    branch.mut_key().push(nhpb);
+				}
+				if let Some(value) = value {
+                    branch.set_value(value.to_vec());
+				} else {
+                    // empty.
+				}
+                proto.set_Branch(branch);
+            }
         }
         proto.write_to_bytes()
     }

@@ -19,8 +19,8 @@ message ExtensionPB {
 }
 
 message BranchPB {
-    repeated bytes key = 1;
-    NodeHandlePB value = 2;
+    repeated NodeHandlePB key = 1;
+    bytes value = 2;
 }
 
 message NodePB {
