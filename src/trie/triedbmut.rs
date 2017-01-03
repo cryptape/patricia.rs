@@ -965,20 +965,28 @@ impl<'a> TrieDBMut<'a> {
 	}
 
     pub fn commit_pb(&mut self) {
-        /*for hash in self.death_row.drain() {
+        for hash in self.death_row.drain() {
             self.db.remove(&hash);
         }
         let handle = match self.root_handle() {
             NodeHandle::Hash(_) => return,
-            NodeHandle::Inmemory(h) => h,
+            NodeHandle::InMemory(h) => h,
         };
         
         match self.storage.destroy(handle) {
-            Stored::New(node) => {
-                let 
-            }
+			Stored::New(node) => {
+                let root_pb = node.into_pb(|child, nhpb| self.commit_pb_node(child, nhpb)).unwrap();
+				*self.root = self.db.insert(&root_pb[..]);
+				self.hash_count += 1;
 
-        }*/
+				self.root_handle = NodeHandle::Hash(*self.root);
+			}
+			Stored::Cached(node, hash) => {
+				// probably won't happen, but update the root and move on.
+				*self.root = hash;
+				self.root_handle = NodeHandle::InMemory(self.storage.alloc(Stored::Cached(node, hash)));
+			}
+        }
     }
 
 	/// commit a node, hashing it, committing it to the db,
