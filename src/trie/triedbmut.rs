@@ -19,7 +19,7 @@
 use super::{TrieError, TrieMut};
 use super::node::Node as RlpNode;
 use super::node::NodeKey;
-use proto::*;
+use super::proto::*;
 
 use ::{HashDB, H256};
 use ::bytes::ToPretty;
@@ -164,7 +164,7 @@ impl Node {
 		}
 	}
 
-    fn into_node<F>(self, mut node_child_cb: F) -> ProtobufResult<Vec<u8>>
+    fn into_pb<F>(self, mut node_child_cb: F) -> ProtobufResult<Vec<u8>>
         where F: FnMut(NodeHandle, &mut NodeHandlePB)
     {
         let mut proto = NodePB::new();
@@ -174,16 +174,16 @@ impl Node {
             }
             Node::Leaf(partial, value) => {
                 let mut leaf = LeafPB::new();
-                leaf.set_key(k.to_vec());
-                leaf.set_value(v.to_vec());
+                leaf.set_key(partial.to_vec());
+                leaf.set_value(value.to_vec());
                 proto.set_Leaf(leaf);
             }
             Node::Extension(partial, child) => {
                 let mut extension = ExtensionPB::new();
-                extension.set_key(patrial.to_vec());
+                extension.set_key(partial.to_vec());
                 let mut nhpb = NodeHandlePB::new();
                 node_child_cb(child, &mut nhpb);
-                extension.set_value(nhhb);
+                extension.set_value(nhpb);
                 proto.set_Extension(extension);
             }
             Node::Branch(mut children, value) => {
@@ -900,7 +900,7 @@ impl<'a> TrieDBMut<'a> {
 	}
 
     pub fn commit_pb(&mut self) {
-        for hash in self.death_row.drain() {
+        /*for hash in self.death_row.drain() {
             self.db.remove(&hash);
         }
         let handle = match self.root_handle() {
@@ -913,7 +913,7 @@ impl<'a> TrieDBMut<'a> {
                 let 
             }
 
-        }
+        }*/
     }
 
 	/// commit a node, hashing it, committing it to the db,
@@ -937,20 +937,20 @@ impl<'a> TrieDBMut<'a> {
 		};
 	}
 
-    fn commit_pb_node(&mut self, handle: NodeHandle, stream: &mut Vec<u8>) {
+    fn commit_pb_node(&mut self, handle: NodeHandle, nhpb: &mut NodeHandlePB) {
         match handle {
-            NodeHandle::Hash(h) => stream.append(&h),
+            NodeHandle::Hash(h) => nhpb.set_hash(h.to_vec()),
             NodeHandle::InMemory(h) => match self.storage.destroy(h) {
-                Stored::Cached(_, h) => stream.append(&h),
+                Stored::Cached(_, h) => nhpb.set_hash(h.to_vec()),
                 Stored::New(node) => {
-                    let node_pb = node.into_pb(|child, stream| self.commit_node(child, stream));
-                    if node_pb.len() >= 32 {
-                        let hash = self.db.insert(&node_pb[..]);
-                        self.hash_count += 1;
-                        stream.append(&hash)
-                    } else {
-                        stream.append_raw(&node_pb, 1)
-                    }
+                    let node_pb = node.into_pb(|child, nhpb| self.commit_pb_node(child, nhpb)).unwrap();
+                        if node_pb.len() >= 32 {
+                            let hash = self.db.insert(&node_pb[..]);
+                            self.hash_count += 1;
+                            nhpb.set_hash(hash.to_vec())
+                        } else {
+                            nhpb.set_hash(node_pb)
+                        }
                 }
             }
         };

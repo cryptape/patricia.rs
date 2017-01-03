@@ -2,15 +2,17 @@ extern crate ethcore_bigint as bigint;
 extern crate elastic_array;
 extern crate rustc_serialize;
 
-use super::super::protobuf::Message;
-use super::super::protobuf::error::ProtobufResult;
-use super::super::protobuf::core::parse_from_bytes;
+pub use super::super::protobuf::Message;
+pub use super::super::protobuf::error::ProtobufResult;
+pub use super::super::protobuf::core::parse_from_bytes;
 
-mod node_pb;
-mod recursive;
+pub mod node_pb;
+pub mod recursive;
+
+pub use self::node_pb::*;
 
 //use self::recursive::{ListProto};
-use self::node_pb::*;
+/*use self::node_pb::*;
 use super::node::Node;
 use super::node::NodeKey;
 use super::super::hashdb::DBValue;
@@ -58,7 +60,7 @@ impl NodePB {
         }
         proto
     }
-}
+}*/
 /*
 impl ListProto {
     fn append_str(&mut self, str: ::std::vec::Vec<u8>) {

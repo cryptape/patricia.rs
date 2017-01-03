@@ -1,4 +1,4 @@
-// Copyright 2015, 2016 Ethcore (UK) Ltd.
+// Copyright 2015, 2016 Ethcore (UK) Ltd. and gguoss.
 // This file is part of Parity.
 
 // Parity is free software: you can redistribute it and/or modify
@@ -51,6 +51,7 @@ pub use self::sectriedb::SecTrieDB;
 pub use self::fatdb::{FatDB, FatDBIterator};
 pub use self::fatdbmut::FatDBMut;
 pub use self::recorder::Recorder;
+pub use self::proto::*;
 
 /// Trie Errors.
 ///
