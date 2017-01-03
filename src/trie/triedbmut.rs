@@ -97,6 +97,28 @@ impl Node {
 		}
 	}
 
+    fn inline_or_hash_pb(nhpb: &NodeHandlePB, db: &HashDB, storage: &mut NodeStorage) -> NodeHandle {
+        match (*nhpb).clone().content.unwrap() {
+            NodeHandlePB_oneof_content::hash(h) => {
+                if h.len() == 32 {
+                    let mut arr = [0u8;32];
+                    for i in 0..32 {
+                        arr[i] = h[i];
+                    }
+                    NodeHandle::Hash(H256(arr))
+                }
+                else {
+                    let child = Node::from_pb(h.as_slice(), db, storage);
+                    NodeHandle::InMemory(storage.alloc(Stored::New(child)))
+                }
+            },
+            NodeHandlePB_oneof_content::node(n) => {
+                let child = Node::from_pb_bare(&n, db, storage);
+                NodeHandle::InMemory(storage.alloc(Stored::New(child)))
+            }
+        }
+    }
+
 	// decode a node from rlp without getting its children.
 	fn from_rlp(rlp: &[u8], db: &HashDB, storage: &mut NodeStorage) -> Self {
 		match RlpNode::decoded(rlp) {
@@ -205,6 +227,49 @@ impl Node {
         }
         proto.write_to_bytes()
     }
+
+	// decode a node from rlp without getting its children.
+	fn from_pb(pb: &[u8], db: &HashDB, storage: &mut NodeStorage) -> Self {
+        let proto = parse_from_bytes::<NodePB>(pb).unwrap();
+		match proto.clone().content.unwrap().clone() {
+			NodePB_oneof_content::Empty(b) => Node::Empty,
+			NodePB_oneof_content::Leaf(leaf) => Node::Leaf(NodeKey::from_slice(leaf.get_key()), DBValue::from_slice(leaf.get_value())),
+			NodePB_oneof_content::Extension(extension) => {
+				Node::Extension(NodeKey::from_slice(extension.get_key()), Self::inline_or_hash_pb(extension.get_value(), db, storage))
+			}
+			NodePB_oneof_content::Branch(branch) => {
+				let mut children = empty_children();
+
+				for i in 0..16 {
+					let child_pb = &branch.get_key()[i];
+					children[i] = Some(Self::inline_or_hash_pb(&child_pb, db, storage));
+				}
+
+				Node::Branch(children, Some(DBValue::from_slice(branch.get_value())))
+			}
+		}
+	}
+
+	fn from_pb_bare(proto: &NodePB, db: &HashDB, storage: &mut NodeStorage) -> Self {
+		match (*proto).clone().content.unwrap().clone() {
+			NodePB_oneof_content::Empty(b) => Node::Empty,
+			NodePB_oneof_content::Leaf(leaf) => Node::Leaf(NodeKey::from_slice(leaf.get_key()), DBValue::from_slice(leaf.get_value())),
+			NodePB_oneof_content::Extension(extension) => {
+				Node::Extension(NodeKey::from_slice(extension.get_key()), Self::inline_or_hash_pb(extension.get_value(), db, storage))
+			}
+			NodePB_oneof_content::Branch(branch) => {
+				let mut children = empty_children();
+
+				for i in 0..16 {
+					let child_pb = &branch.get_key()[i];
+					children[i] = Some(Self::inline_or_hash_pb(&child_pb, db, storage));
+				}
+
+				Node::Branch(children, Some(DBValue::from_slice(branch.get_value())))
+			}
+		}
+	}
+
 }
 
 // post-inspect action.
@@ -947,9 +1012,9 @@ impl<'a> TrieDBMut<'a> {
                         if node_pb.len() >= 32 {
                             let hash = self.db.insert(&node_pb[..]);
                             self.hash_count += 1;
-                            nhpb.set_hash(hash.to_vec())
+                            return nhpb.set_hash(hash.to_vec());
                         } else {
-                            nhpb.set_hash(node_pb)
+                            return nhpb.set_hash(node_pb);
                         }
                 }
             }
